@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+
+{% block title %}Profile{% endblock %}
+
+{% block css %}
+<link href="{{ url_for('static', filename='css/profile.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block main %}
+<h1>Add Profile</h1><br>
+<div class="card w-75">
+    <div class="card-body">
+        <form method="POST" action="{{url_for('profile')}}" enctype="multipart/form-data">
+        {{ form.csrf_token }}
+            <div class="form-group col-sm-8">
+                {{ form.firstname.label }}
+                {{ form.firstname(required=False, class="form-control")}}
+            </div>
+            <ul>
+            {% for error in form.firstname.errors %}
+                <li class="error-messages" style="color:red;">{{ error }}</li>
+            {% endfor %}
+            </ul>
+            
+            <div class="form-group col-sm-8">
+                {{ form.lastname.label }}
+                {{ form.lastname(required=False, class="form-control")}}
+            </div>
+            <ul>
+            {% for error in form.lastname.errors %}
+                <li class="error-messages" style="color:red;">{{ error }}</li>
+            {% endfor %}
+            </ul>
+            
+            <div class="form-group col-sm-8">
+                {{ form.gender.label }}
+                {{ form.gender(required=False, class="form-control")}}
+            </div>
+            <ul>
+            {% for error in form.gender.errors %}
+                <li class="error-messages" style="color:red;">{{ error }}</li>
+            {% endfor %}
+            </ul>
+            
+            <div class="form-group col-sm-8">
+                {{ form.email.label }}
+                {{ form.email(required=False, class="form-control", placeholder='e.g. jdoe@example.com')}}
+            </div>
+            <ul>
+            {% for error in form.email.errors %}
+                <li class="error-messages" style="color:red;">{{ error }}</li>
+            {% endfor %}
+            </ul>
+            
+            <div class="form-group col-sm-8">
+                {{ form.location.label }}
+                {{ form.location(required=False, class="form-control", placeholder='e.g. Kingston, Jamaica')}}
+            </div>
+            <ul>
+            {% for error in form.location.errors %}
+                <li class="error-messages" style="color:red;">{{ error }}</li>
+            {% endfor %}
+            </ul>
+            
+            <div class="form-group col-sm-8">
+                {{ form.bio.label }}
+                {{ form.bio(required=False, class="form-control")}}
+            </div>
+            <ul>
+            {% for error in form.bio.errors %}
+                <li class="error-messages" style="color:red;">{{ error }}</li>
+            {% endfor %}
+            </ul>
+            
+            <div class="form-group col-sm-8"><p>Profile Picture</p>
+                {{form.photo}}
+            </div>
+            <ul>
+            {% for error in form.photo.errors %}
+                <li class="error-messages" style="color:red;">{{ error }}</li>
+            {% endfor %}
+            </ul>
+            <br>
+            
+            <div class="form-group col-sm-8">
+                <button type="submit" class="btn btn-success btn-md">Add Profile</button>
+            </div>
+            <br>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,52 @@
+#profilepic
+{
+    padding: 5px;
+    float: left;
+    width: 200px;
+    height:200px;
+    margin-left:2rem;
+    border-radius: 30px;
+}
+
+#content {
+    background-color: white !important;
+    width: 600px;
+    margin: 0 auto;
+}
+
+.info{
+    text-align: left;
+    margin-top: 50px;
+    color: grey;
+    font-weight: bold;
+    margin-left:18rem;
+}
+
+body {
+    background-color:#dae7ef;
+}
+
+.top {
+    color: #0000A0;
+    border: solid 1.5px;
+    margin-left:13px;
+    margin-right:13px;
+}
+
+.profile{
+    padding-top:20px;
+    padding-bottom: 10px;
+    background-color: white;
+    border-radius:10px;
+    border-top: #0000A0 solid 3px;
+}
+
+h3{
+    color:black;
+}
+
+button {
+    margin-left:32rem;
+    margin-top:-170px;
+    border-radius:5px;
+}

@@ -1,17 +1,25 @@
 from . import db
 
-
 class UserProfile(db.Model):
-    # You can use this to change the table name. The default convention is to use
-    # the class name. In this case a class name of UserProfile would create a
-    # user_profile (singular) table, but if we specify __tablename__ we can change it
-    # to `user_profiles` (plural) or some other name.
-    __tablename__ = 'user_profiles'
-
     id = db.Column(db.Integer, primary_key=True)
-    first_name = db.Column(db.String(80))
-    last_name = db.Column(db.String(80))
-    username = db.Column(db.String(80), unique=True)
+    firstname = db.Column(db.String(80))
+    lastname = db.Column(db.String(80))
+    gender = db.Column(db.String(10))
+    email=db.Column(db.String(80),unique=True)
+    location=db.Column(db.String(80))
+    bio = db.Column(db.String(255))
+    filename = db.Column(db.String(80))
+    date_joined = db.Column(db.DateTime)
+    
+    def __init__(self,firstname,lastname,gender,email,location,biography,filename,date_joined):
+        self.firstname=firstname
+        self.lastname =lastname
+        self.gender=gender
+        self.email=email
+        self.location=location
+        self.bio=biography
+        self.filename=filename
+        self.date_joined=date_joined
 
     def is_authenticated(self):
         return True

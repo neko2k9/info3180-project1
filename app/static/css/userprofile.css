@@ -1,0 +1,83 @@
+#profileimg
+{
+    position:i;
+    padding: 15px;
+    float: left;
+    width: 225px;
+    height:225px;
+    border-radius:30px;
+}
+
+.info{
+    text-align: left;
+    margin-top: 20px;
+    color: grey;
+    font-weight: bold;
+}
+
+body{
+    background-color:#dae7ef;
+}
+
+.profile{
+    overflow: auto;
+    margin: auto;
+    width: 700px;
+    height: 50%;
+    background-color: white;
+    border-top: solid 4px blue;
+}
+
+h4{
+    color: black;
+}
+
+.bio{
+    margin-left: 4rem;
+    color: black;
+    position: relative;
+}
+
+
+.button{
+    text-align: center;
+    padding: 15px;
+}
+
+#btn1{
+    background-color: green;
+    font-weight: bold;
+    border-color: green;
+    color: white;
+    border-radius: 5px;
+    margin-left: 50px;
+    width: 150px;
+    margin-left:4rem;
+    padding:10px 20px;
+}
+
+#btn2{
+    background-color: blue;
+    border-color: blue;
+    font-weight: bold;
+    color: white;
+    border-radius: 5px;
+    margin-left: 50px;
+    width: 150px;
+    margin-left:6rem;
+    padding:10px 20px;
+}
+
+.content {
+    background-color: white !important;
+    width: 600px;
+    margin: 0 auto;
+    padding:5px;
+    padding-bottom:20px;
+    border-top: #0000A0 solid 3px;
+    border-radius:5px;
+}
+
+.inner-content{
+    margin-left:50px;
+}

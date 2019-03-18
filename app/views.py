@@ -5,10 +5,11 @@ Werkzeug Documentation:  http://werkzeug.pocoo.org/documentation/
 This file creates your application.
 """
 
-from app import app, db, login_manager
-from flask import render_template, request, redirect, url_for, flash
-from flask_login import login_user, logout_user, current_user, login_required
-from app.forms import LoginForm
+from app import app, db
+import os, datetime
+from flask import render_template, request, redirect, url_for, flash, session, abort, send_from_directory
+from werkzeug.utils import secure_filename
+from app.forms import ProfileForm
 from app.models import UserProfile
 
 
@@ -27,35 +28,60 @@ def about():
     """Render the website's about page."""
     return render_template('about.html')
 
+@app.route("/profile",methods=["GET","POST"])
+def profile():
+    form=ProfileForm()
+    if request.method=="POST" and form.validate_on_submit():
+        firstname=form.firstname.data
+        lastname=form.lastname.data
+        gender=form.gender.data
+        email=form.email.data
+        location=form.location.data
+        biography=form.bio.data
+        print (biography)
+        now=str(datetime.date.today())
+        
+        image=request.files['photo']
+        if allowed_file(image.filename):
+            filename=secure_filename(image.filename)
+            image.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        else:
+            flash('Incorrect File Format','danger')
+            return redirect(url_for('profile'))
+        
+        user=UserProfile(firstname,lastname,gender,email,location,biography,filename,now)
+        db.session.add(user)
+        db.session.commit()
+        flash('File Saved','success')
+        return redirect(url_for('profiles'))
+    return render_template("profile.html", form=form)
+    
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in app.config['ALLOWED_UPLOADS']
 
-@app.route("/login", methods=["GET", "POST"])
-def login():
-    form = LoginForm()
-    if request.method == "POST":
-        # change this to actually validate the entire form submission
-        # and not just one field
-        if form.username.data:
-            # Get the username and password values from the form.
 
-            # using your model, query database for a user based on the username
-            # and password submitted. Remember you need to compare the password hash.
-            # You will need to import the appropriate function to do so.
-            # Then store the result of that query to a `user` variable so it can be
-            # passed to the login_user() method below.
+def get_uploaded_images():
+    rootdir = os.getcwd()
+    print (rootdir)
+    img = []
+    for subdir, dirs, files in os.walk(rootdir + '/app/static/uploads'):
+        for file in files:
+            img.append(os.path.join(subdir, file).split('/')[-1])
+    return img
 
-            # get user id, load into session
-            login_user(user)
-
-            # remember to flash a message to the user
-            return redirect(url_for("home"))  # they should be redirected to a secure-page route instead
-    return render_template("login.html", form=form)
+@app.route('/profiles/')
+def profiles():
+    imagenames = get_uploaded_images()
+    users = UserProfile.query.all()
+    return render_template("profiles.html", users=users, imagenames=imagenames)
 
 
-# user_loader callback. This callback is used to reload the user object from
-# the user ID stored in the session
-@login_manager.user_loader
-def load_user(id):
-    return UserProfile.query.get(int(id))
+@app.route("/profiles/<id>")
+def user_profile(id):
+    user = UserProfile.query.filter_by(id=id).first()
+    imagenames= get_uploaded_images()
+    return render_template('viewprofile.html', user=user, imagenames=imagenames)
 
 ###
 # The functions below should be applicable to all Flask apps.

@@ -1,0 +1,19 @@
+body {
+    background-color:#dae7ef;
+}
+
+label {
+    font-weight:bold;
+}
+
+p {
+    font-weight:bold;
+}
+
+textarea {
+    height:120px;
+}
+
+.error-messages {
+    font-size: 12px;
+}
